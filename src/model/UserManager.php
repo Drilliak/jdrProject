@@ -1,41 +1,34 @@
 <?php
 
 require_once "User.php";
+require_once "Manager.php";
 
-class UserManager
+class UserManager extends Manager
 {
-    const TABLE_NAME = "user";
-
-    /**
-     * @var PDO PDO instance
-     */
-    private $db;
-
-
 
     public function __construct($db)
     {
-        $this->db = $db;
+        parent::__construct($db);
     }
 
     /**
-     * @param User $user
+     * @param User $entity
      * @return bool TRUE on success or FALSE on failure
      */
-    public function add(User $user){
-        $req = $this->db->prepare('INSERT INTO ' . self::TABLE_NAME .'(name, password, role) VALUES(:name, :password, :role)');
+    public function add($entity){
+        $req = $this->db->prepare('INSERT INTO ' . self::USER_TABLE.'(name, password, role) VALUES(:name, :password, :role)');
         return $req->execute(array(
-            "name" => $user->getName(),
-            "password" =>$user->getPassword(),
-            "role" => $user->getRole()
+            "name" => $entity->getName(),
+            "password" =>$entity->getPassword(),
+            "role" => $entity->getRole()
         ));
     }
 
-    public function exist(User $user){
-        $req = $this->db->prepare('SELECT id FROM ' . self::TABLE_NAME . ' WHERE name = :name AND password = :password');
+    public function exist($entity){
+        $req = $this->db->prepare('SELECT id FROM ' . self::USER_TABLE. ' WHERE name = :name AND password = :password');
         $req->execute(array(
-            "name" =>$user->getName(),
-            "password" =>$user->getPassword()
+            "name" =>$entity->getName(),
+            "password" =>$entity->getPassword()
         ));
         $res = $req->fetch();
         if (!$res){
@@ -44,9 +37,17 @@ class UserManager
             return true;
         }
     }
+    public function delete($entity)
+    {
+        $req = $this->db->prepare('DELETE FROM '.self::USER_TABLE.' WHERE id = :id');
+        return($req->execute(array(
+            "id" => $entity->getId()
+        )));
+
+    }
 
     public function get($username, $hashedPassword){
-        $req = $this->db->prepare('SELECT * FROM ' . self::TABLE_NAME . ' WHERE name = :name AND password = :password');
+        $req = $this->db->prepare('SELECT * FROM ' . self::USER_TABLE. ' WHERE name = :name AND password = :password');
         $req->execute(array(
             "name" =>$username,
             "password" =>$hashedPassword
@@ -55,10 +56,6 @@ class UserManager
         if ($res !== false){
             return new User($res);
         }
-
-    }
-
-    public function delete(User $user){
 
     }
 }
