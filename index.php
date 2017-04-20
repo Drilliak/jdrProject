@@ -1,14 +1,14 @@
 <?php
 
-include_once'./src/model/DBFactory.php';
-include_once './src/model/User.php';
-include_once './src/model/UserManager.php';
+
+
+include_once 'Autoloader.php';
 
 $connected = false;
 
 $role = "player";
 
-if (isset($_POST['pseudo']) && isset($_POST['password'])) {
+if ((isset($_POST['pseudo']) && isset($_POST['password']))) {
 
     $db = DBFactory::getPDOConnection();
     $userManager = new UserManager($db);
@@ -43,6 +43,12 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     if ($connected){
         echo "<p>Connecté en tant que " . $user->getName() . '</p>';
         echo "<a href='.'>Déconnexion</a>";
+        if ($role == "player"){
+        echo "vous êtes une petite pute de joueur sans aucun droit, ni talent";
+        }
+        if ($role == "gameMaster"){
+        echo "bravo, vous êtes tibo";
+    }
 
     } else {
         require('./src/view/authenticateForm.php' );
@@ -50,12 +56,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
     }
 
 
-    if ($role == "player"){
-        echo "vous êtes une petite pute de joueur sans aucun droit, ni talent";
-    }
-    if ($role == "gameMaster"){
-        echo "bravo, vous êtes tibo";
-    }
+
     ?>
 
 

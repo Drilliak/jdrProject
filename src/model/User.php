@@ -1,5 +1,8 @@
 <?php
 
+namespace Src\Model;
+
+
 class User{
 
 
@@ -7,6 +10,11 @@ class User{
     private $id;
     private $name;
     private $role;
+
+    /**
+     * @var Personnage
+     */
+    private $personnage;
 
     /**
      * @var string hashed password

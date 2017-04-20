@@ -1,4 +1,7 @@
 <?php
+
+namespace Src\Model;
+
 class DBFactory{
 
     const HOST = "localhost";
@@ -8,8 +11,8 @@ class DBFactory{
 
     public static function getPDOConnection()
     {
-        $db = new PDO('mysql:host=' . self::HOST . ';dbname=' . self::DB_NAME, self::USERNAME, self::PASSWORD);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db = new \PDO('mysql:host=' . self::HOST . ';dbname=' . self::DB_NAME, self::USERNAME, self::PASSWORD);
+        $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         return $db;
     }

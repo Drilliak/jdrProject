@@ -1,7 +1,8 @@
 <?php
-/**
-* 
-*/
+
+namespace Src\Model;
+
+
 class Sort
 {
     private $nom;

@@ -1,11 +1,14 @@
 <?php
 
-include 'Sort.php'
-include 'Objet.php'
-include 'Rules.php'
-/**
-* 
-*/
+namespace Src\Model;
+
+require_once "../../Autoloader.php";
+\Autoloader::register();
+
+use Src\Model\Sort;
+use Src\Model\Objet;
+use Src\Model\Rules;
+
 class Personnage
 {
     private $nom,
@@ -19,7 +22,7 @@ class Personnage
     /**
     * @var array
     */
-    private $competence;
+    private $competences;
     
     /**
     * @var array
@@ -90,6 +93,7 @@ class Personnage
      */
     public function getStatPhysique()
     {
+
         return $this->statPhysique;
     }
 
@@ -98,6 +102,7 @@ class Personnage
      */
     public function setStatPhysique($statPhysique)
     {
+        $statPhysique = (int) $statPhysique;
         $this->statPhysique = $statPhysique;
     }
 
@@ -114,6 +119,7 @@ class Personnage
      */
     public function setStatMental($statMental)
     {
+        $statMental = (int) $statMental;
         $this->statMental = $statMental;
     }
 
@@ -130,6 +136,7 @@ class Personnage
      */
     public function setStatSocial($statSocial)
     {
+        $statSocial = (int) $statSocial;
         $this->statSocial = $statSocial;
     }
 
@@ -146,6 +153,7 @@ class Personnage
      */
     public function setStatMagie($statMagie)
     {
+        $statMagie = (int) $statMagie;
         $this->statMagie = $statMagie;
     }
 
@@ -168,17 +176,17 @@ class Personnage
     /**
      * @return array
      */
-    public function getCompetence()
+    public function getCompetences()
     {
-        return $this->competence;
+        return $this->competences;
     }
 
     /**
      * @param array $competence
      */
-    public function setCompetence($competence)
+    public function setCompetences($competences)
     {
-        $this->competence = $competence;
+        $this->competences = $competences;
     }
 
     /**

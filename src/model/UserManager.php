@@ -1,7 +1,12 @@
 <?php
+namespace Src\Model;
 
-require_once "User.php";
-require_once "Manager.php";
+require_once "../../Autoloader.php";
+\Autoloader::register();
+
+use Src\Model\User;
+use Src\Model\Manager;
+
 
 class UserManager extends Manager
 {
@@ -24,6 +29,10 @@ class UserManager extends Manager
         ));
     }
 
+    /**
+     * @param $entity
+     * @return TRUE if the user with the name and the password passed as parameters exist, FALSE otherwise.
+     */
     public function exist($entity){
         $req = $this->db->prepare('SELECT id FROM ' . self::USER_TABLE. ' WHERE name = :name AND password = :password');
         $req->execute(array(

@@ -1,7 +1,8 @@
 <?php
-/**
-* 
-*/
+
+namespace Src\Model;
+
+
 class Rules
 {
     const STAT_LVL_MIN = 5;
