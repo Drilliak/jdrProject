@@ -18,6 +18,7 @@ if (!isset($_SESSION['login'])){
 <h1><?php echo $_SESSION['login']; ?></h1>
 <fieldset>
     <legend>Fiche personnage </legend>
+    <img id="myImg" src="" />
     <ul id = "state">
 
         <li>PV : <span id="pv"></span></li>
@@ -53,6 +54,7 @@ if (!isset($_SESSION['login'])){
                     name: "<?php echo $_SESSION['login']; ?>"
                 },
                 function(personnage){
+                    $("#myImg").attr('src', personnage.image_grande);
                     for(let player in personnage.otherPlayers){
                         console.log(player);
                         let hp = personnage.otherPlayers[player].hp;
@@ -61,6 +63,7 @@ if (!isset($_SESSION['login'])){
                         let manaMax = personnage.otherPlayers[player].statMagie;
                         $("#otherPlayers").append(
                             '<li>' + player + '</li>'+
+                                '<img src="' + personnage.otherPlayers[player].image_petite + '" />' +
                                 '<ul class = "stats">' +
                                     '<li class = "hp">PV : <progress class = "hpbarre" id = "' + player + '" value="' + hp +  '" min="0" max="' + hpMax + '"></progress></li>' +
                                     '<li class = "mana">Mana : <progress class="manabarre" id ="' + player + '" value="' + mana +  '" min="0" max="' + manaMax + '"></progress></li>' +
@@ -68,6 +71,15 @@ if (!isset($_SESSION['login'])){
 
                         );
                     }
+                    $("#pv").append(
+                        '<span id="myHpValue">' + personnage.hp+'</span> <br>' +
+                      '<progress  id="myHp" value="' + personnage.hp + '" min="0" max="' + personnage.statPhysique + '"></progress>'
+                    );
+                    $("#mana").append(
+                        '<span id="myManaValue">' + personnage.mana+'</span> <br>' +
+                        '<progress  id="myMana" value="' + personnage.mana + '" min="0" max="' + personnage.statMental+ '"></progress>'
+                    );
+
                 },
                 'json'
 
@@ -86,8 +98,13 @@ if (!isset($_SESSION['login'])){
                         $("#mental").html(personnage.statMental);
                         $("#social").html(personnage.statSocial);
                         $("#magie").html(personnage.statMagie);
-                        $("#pv").html(personnage.hp);
-                        $("#mana").html(personnage.mana);
+
+                        $("#myHpValue").html(personnage.hp);
+                        $("#myHp").val(personnage.hp);
+
+                        $("#myMana").val(personnage.mana);
+                        $("#myManaValue").html(personnage.mana);
+
                         $("#armure").html(personnage.armor);
 
                         for(let player in personnage.otherPlayers){
