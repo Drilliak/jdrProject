@@ -14,15 +14,19 @@ if (!empty($_POST)){
     // Si le mot de passe et le login ont bien été envoyés
     if (!empty($_POST['password']) && !empty($_POST['login'])){
         $userManager = new UserManager(DBFactory::getPDOConnection());
+        $name = $_POST['login'];
+        $hashedPassword = hash("sha512", $_POST['password']);
         $user = new User(array(
-            "name" => $_POST['login'],
-            "password" => hash("sha512", $_POST['password'])
+            "name" => $name,
+            "password" => $hashedPassword
         ));
         if ($userManager->exist($user)){
+            $user = $userManager->get($name, $hashedPassword);
             session_start();
             $_SESSION['login'] = $user->getName();
-            header('Location : http://localhost/jdrProject/src/view/test.php');
-            exit;
+            $_SESSION['role'] = $user->getRole();
+            header('Location: index.php');
+            exit();
         } else {
             $errorMessage = "Mauvais login et/ou mot de passe";
         }

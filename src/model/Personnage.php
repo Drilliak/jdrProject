@@ -9,7 +9,7 @@ use Src\Model\Sort;
 use Src\Model\Objet;
 use Src\Model\Rules;
 
-class Personnage
+class Personnage implements \JsonSerializable
 {
     private $nom,
             $titre,
@@ -17,7 +17,10 @@ class Personnage
             $statMental,
             $statSocial,
             $statMagie,
-            $divers;
+            $divers,
+            $hp,
+            $mana,
+            $armor;
 
     /**
     * @var array
@@ -219,6 +222,49 @@ class Personnage
     public function setEquipement($equipement)
     {
         $this->equipement = $equipement;
+    }
+
+    public function getHp(){
+        return $this->hp;
+    }
+
+    public function setHp($hp){
+        $this->hp = $hp;
+    }
+
+    public function getArmor(){
+        return $this->armor;
+    }
+
+    public function setArmor($armor){
+        $this->armor = $armor;
+    }
+
+    public function getMana(){
+        return $this->mana;
+    }
+
+    public function setMana($mana){
+        $this->mana = $mana;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            "nom" => $this->nom,
+            "titre" => $this->titre,
+            "statPhysique" => $this->statPhysique,
+            "statMental" => $this->statMental,
+            "statSocial" => $this->statSocial,
+            "statMagie" => $this->statMagie,
+            "divers" => $this->divers,
+            "competences" =>$this->competences,
+            "sorts" => $this->sorts,
+            "equipement" => $this->equipement,
+            "hp" => $this->hp,
+            "mana" => $this->mana,
+            "armor" => $this->armor
+        );
     }
 
 }

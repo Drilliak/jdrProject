@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 19 Avril 2017 à 14:49
+-- Généré le :  Ven 21 Avril 2017 à 15:57
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Personnage`
+-- Structure de la table `personnage`
 --
 
 CREATE TABLE `personnage` (
@@ -39,17 +39,27 @@ CREATE TABLE `personnage` (
   `imgURL` text NOT NULL,
   `competences` text NOT NULL,
   `sorts` text NOT NULL,
-  `equipement` text NOT NULL
+  `equipement` text NOT NULL,
+  `hp` int(11) NOT NULL,
+  `armor` int(11) NOT NULL,
+  `mana` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `personnage`
+--
+
+INSERT INTO `personnage` (`id`, `nom`, `titre`, `statPhysique`, `statMental`, `statSocial`, `statMagie`, `divers`, `backstory`, `imgURL`, `competences`, `sorts`, `equipement`, `hp`, `armor`, `mana`) VALUES
+(1, 'gleugo', 'grosse merde', 0, 1, 1, 51, 'coucou', 'salut', 'rien', 'rien', 'rien', 'rien', 50, 8, 4);
 
 --
 -- Index pour les tables exportées
 --
 
 --
--- Index pour la table `Personnage`
+-- Index pour la table `personnage`
 --
-ALTER TABLE `Personnage`
+ALTER TABLE `personnage`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57,10 +67,10 @@ ALTER TABLE `Personnage`
 --
 
 --
--- AUTO_INCREMENT pour la table `Personnage`
+-- AUTO_INCREMENT pour la table `personnage`
 --
-ALTER TABLE `Personnage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `personnage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

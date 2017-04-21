@@ -4,9 +4,9 @@ namespace Src\Model;
 require_once "../../Autoloader.php";
 \Autoloader::register();
 
+use Src\Model\PersonnageManager;
 use Src\Model\User;
 use Src\Model\Manager;
-
 
 class UserManager extends Manager
 {
@@ -61,10 +61,43 @@ class UserManager extends Manager
             "name" =>$username,
             "password" =>$hashedPassword
         ));
-        $res = $req->fetch(PDO::FETCH_ASSOC);
+        $res = $req->fetch(\PDO::FETCH_ASSOC);
         if ($res !== false){
             return new User($res);
         }
 
+    }
+
+    /**
+     * Retourne un tableau contenant tous les utilisateur ayant le rôle "player" dans la BDD.
+     * Le tableau contient les indices 'name' et 'id_personnage'
+     * @return array
+     */
+    public function getPlayers(){
+        $req = $this->db->prepare('SELECT name, id_personnage FROM ' . self::USER_TABLE . ' WHERE role = "player"');
+        $req->execute();
+        return $req->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    /**
+     * Renvoie le personnage associé à l'utilisateur ayant le nom passé en paramètre.
+     *
+     * @param $name
+     * @return Personnage
+     */
+    public function getPersonnage($name){
+        $req = $this->db->prepare('SELECT id_personnage FROM ' . self::USER_TABLE . ' WHERE name = :name');
+        $req->execute(array(
+            'name' => $name
+        ));
+        $idPersonnage = $req->fetch(\PDO::FETCH_ASSOC)['id_personnage'];
+
+        $req = $this->db->prepare('SELECT * FROM ' . PersonnageManager::PERSONNAGE_TABLE . ' WHERE id = :id');
+        $req->execute(array(
+            'id' => $idPersonnage
+        ));
+
+        return new Personnage($req->fetch(\PDO::FETCH_ASSOC));
     }
 }

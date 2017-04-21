@@ -2,8 +2,10 @@
 
 namespace Src\Model;
 
+use Src\Model\Personnage;
 
-class User{
+
+class User implements \JsonSerializable {
 
 
     const ALLOWED_ROLES = ['gamemaster', 'player'];
@@ -65,6 +67,22 @@ class User{
 
     public function getRole() :string {
         return $this->role;
+    }
+
+    public function getPersonnage() : Personnage{
+        return $this->personnage;
+    }
+
+    public function setPersonnage(Personnage $personnage){
+        $this->personnage = $personnage;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            "name" => $this->name,
+            "personnage" => json_encode($this->personnage)
+        );
     }
 
 }
