@@ -2,6 +2,7 @@ body
 {
     background-color: #2c3e50;
     background-image: url("../img/wallpaper_pj.jpg");
+    background-repeat: no-repeat;
 }
 h1
 {
@@ -15,7 +16,7 @@ fieldset
 {
     border-color: #ecf0f1;
     color: #ecf0f1;
-    width: 25%;
+    width: 35%;
     margin-left: auto;
     margin-right: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -30,4 +31,32 @@ legend
 ul
 {
     list-style: none;
+}
+li
+{
+    font-size: 1.2em;
+    color: #ecf0f1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+progress.hpbarre
+{
+   -webkit-appearance: none;
+   appearance: none;
+}
+progress.hpbarre::-webkit-progress-value
+{
+    background: #00B16A;
+    border-radius: 5px;
+}
+
+progress.manabarre {
+   -webkit-appearance: none;
+   appearance: none;
+
+
+}
+progress.manabarre::-webkit-progress-value
+{
+    background:#3A539B;
+    border-radius: 5px;
 }
