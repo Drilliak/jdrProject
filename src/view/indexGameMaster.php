@@ -22,7 +22,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
 </head>
 <body>
 
-    <h1>Maitre du jeu</h1>
+    <h1>Maître du jeu</h1>
     <table>
         <tr id="header">
             <td class="user">Utilisateur</td>
@@ -34,10 +34,8 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
             <td class="statMagie">Magie</td>
             <td class="hp">PV</td>
             <td class="mana">Mana</td>
-            <td class="armor">Armor</td>
+            <td class="armor">Armure</td>
         </tr>
-
-
     </table>
 
     <script src="<?php echo dirname(dirname(dirname($_SERVER['PHP_SELF']))) . '/vendor/jquery-3.2.1.min.js';?>"></script>
@@ -53,7 +51,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                     console.log(data);
                     for(user of data){
                         $("table").append(
-                            '<tr id="' + user.id_personnage + '">' +
+                            '<tr id="' + user.id_personnage + '" class="userdata">' +
                             '<td class = "user"><p>' + user.name +'</p>' +
                             '<td class = "personnage"><p>' + user.personnage.nom + '</td>' +
                             '<td class = "titre"><input value="' + user.personnage.titre + '"></td>' +
