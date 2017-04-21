@@ -40,6 +40,27 @@ class PersonnageManager extends Manager
     }
 
     /**
+     * Retourne les pv et le mana de tous les joueurs
+     */
+    public function getHpAndManaOtherPlayers($username){
+        $q = $this->db->prepare("SELECT id_personnage FROM " . UserManager::USER_TABLE . " WHERE name = :name");
+        $q->execute(array(
+            "name" => $username
+        ));
+        $id = (int)$q->fetch(\PDO::FETCH_ASSOC)['id_personnage'];
+
+        $q = $this->db->prepare("SELECT nom, titre, hp, mana, statPhysique, statMagie FROM " . self::PERSONNAGE_TABLE . ' WHERE id != ' . $id);
+        $q->execute();
+        $sqlRes = $q->fetchAll(\PDO::FETCH_ASSOC);
+        $res = array();
+        foreach ($sqlRes as $personnage){
+            $res[$personnage['nom']] = $personnage;
+        }
+
+        return $res;
+    }
+
+    /**
      * Met à jour la veleur d'un personnage identifié par son id
      * @param $id
      * @param $attribute

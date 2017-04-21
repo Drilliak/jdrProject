@@ -98,6 +98,6 @@ class UserManager extends Manager
             'id' => $idPersonnage
         ));
 
-        return new Personnage($req->fetch(\PDO::FETCH_ASSOC));
+        return $req->fetch(\PDO::FETCH_ASSOC);
     }
 }

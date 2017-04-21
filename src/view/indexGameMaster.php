@@ -69,6 +69,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
             );
         }
 
+
         $(document).ready(function(){
             $.when(ajaxLoad()).done(function(a){
                 let changedAttr;
@@ -97,8 +98,32 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                     }
                 });
                 $("input").on("focusout", function(){
-                    tdClass = $(this).parent().attr("class");
-                    trId = $(this).parent().parent().attr("id");
+                    console.log("défocus");
+                    let changedAttr;
+                    let changedVal;
+                    let id_personnage;
+
+                    $("input").keypress(function(e){
+                        if (e.which == 13){
+                            changedAttr = $(this).parent().attr("class");
+                            changedVal = $(this).val();
+                            id_personnage = $(this).parent().parent().attr("id");
+
+                            $.post(
+                                '<?php echo dirname(dirname($_SERVER['PHP_SELF']));?>/ajax/update_admin_data.php',
+                                {
+                                    changedAttr: changedAttr,
+                                    changedVal: changedVal,
+                                    id_personnage: id_personnage
+                                },
+                                function(data){
+                                    console.log(data);
+                                },
+                                'json'
+                            );
+
+                        }
+                    });
                 });
             })
 
