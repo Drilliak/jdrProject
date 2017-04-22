@@ -16,7 +16,8 @@ if (!isset($_SESSION['login'])){
 </head>
 <body>
 <fieldset>
-    <legend>Fiche personnage </legend>
+    <legend> </legend>
+    <p><span id="titre"></span></p>
     <div id="myImgContainer">
         <img id="myImg" src=""/>
     </div>
@@ -24,13 +25,11 @@ if (!isset($_SESSION['login'])){
 
         <li>PV : <span id="pv"></span></li>
         <li>Mana : <span id="mana"></span></li>
-        <li>Armure : <span id="armure"></span></li>
+        <li id="myarmor">Armure : <span id="armure"></span></li>
     </ul>
 
     <ul id="baseStats">
-        <li id="nomList">Nom : <span id="name"></span></li>
-        <li>Titre : <span id="titre"></span></li>
-        <li>Physique : <span id="physique"></span></li>
+        <li id="nomList">Physique : <span id="physique"></span></li>
         <li>Mental : <span id="mental"></span></li>
         <li>Social : <span id="social"></span></li>
         <li>Magie : <span id="magie"></span></li>
@@ -65,8 +64,8 @@ if (!isset($_SESSION['login'])){
                         $("#otherPlayers").append(
                             '<div class ="infosAlliesNom"><li id="otherPlayerName">' + player + '</li>'+
                                 '<div class="infosAllies"><ul class = "stats">' +
-                                    '<li class = "hp">PV : <progress class = "hpbarre" id = "' + player + '" value="' + hp +  '" min="0" max="' + hpMax + '"></progress></li>' +
-                                    '<li class = "mana">Mana : <progress class="manabarre" id ="' + player + '" value="' + mana +  '" min="0" max="' + manaMax + '"></progress></li>' +
+                                    '<li class = "hp"><progress class = "hpbarre" id = "' + player + '" value="' + hp +  '" min="0" max="' + hpMax + '"></progress></li>' +
+                                    '<li class = "mana"><progress class="manabarre" id ="' + player + '" value="' + mana +  '" min="0" max="' + manaMax + '"></progress></li>' +
                                 '</ul>'+
                                 '<img src="' + personnage.otherPlayers[player].image_petite + '" /></div></div>'
 
@@ -80,6 +79,7 @@ if (!isset($_SESSION['login'])){
                         '<span id="myManaValue">' + personnage.mana+'/'+personnage.statMagie + '</span> <br>' +
                         '<progress  id="myMana" value="' + personnage.mana + '" min="0" max="' + personnage.statMental+ '"></progress>'
                     );
+                    $("legend").html(personnage.nom);
 
                 },
                 'json'
@@ -93,7 +93,6 @@ if (!isset($_SESSION['login'])){
                         name: "<?php echo $_SESSION['login']; ?>"
                     },
                     function(personnage){
-                        $("#name").html(personnage.nom);
                         $("#titre").html(personnage.titre);
                         $("#physique").html(personnage.statPhysique);
                         $("#mental").html(personnage.statMental);
