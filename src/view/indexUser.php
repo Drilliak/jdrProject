@@ -59,22 +59,27 @@ if (!isset($_SESSION['login'])){
     <ul id="otherPlayers">
 
     </ul>
+
+    <ul id="messages">
+
+    </ul>
     <script src="../../vendor/jquery-3.2.1.min.js"></script>
 
     <script>
 
         $(document).ready(function(){
 
-
+            let idLastMessage = 1;
             $.post(
                 '../ajax/loading_user_data.php',
                 {
-                    name: "<?php echo $_SESSION['login']; ?>"
+                    name: "<?php echo $_SESSION['login']; ?>",
+                    idLastMessage: idLastMessage
                 },
                 function(personnage){
+                    console.log(personnage);
                     $("#myImg").attr('src', personnage.image_grande);
                     for(let player in personnage.otherPlayers){
-                        console.log(player);
                         let hp = personnage.otherPlayers[player].hp;
                         let hpMax = personnage.otherPlayers[player].statPhysique;
                         let mana = personnage.otherPlayers[player].mana;
@@ -100,18 +105,22 @@ if (!isset($_SESSION['login'])){
                     );
                     $("legend").html(personnage.nom);
 
+
                 },
                 'json'
 
             );
 
+
             setInterval(function(){
                 $.post(
                     '../ajax/loading_user_data.php',
                     {
-                        name: "<?php echo $_SESSION['login']; ?>"
+                        name: "<?php echo $_SESSION['login']; ?>",
+                        idLastMessage: idLastMessage
                     },
                     function(personnage){
+                        console.log(idLastMessage);
                         $("#titre").html(personnage.titre);
                         $("#physique").html(personnage.statPhysique);
                         $("#mental").html(personnage.statMental);
@@ -131,6 +140,16 @@ if (!isset($_SESSION['login'])){
                             let mana = personnage.otherPlayers[player].mana;
                             $(".hpbarre#" + player).val(hp);
                             $(".manabarre#" + player).val(mana);
+                        }
+
+                        for(let mes of personnage.newMessages){
+                            if (mes.id > idLastMessage){
+                                idLastMessage = mes.id;
+                            }
+
+                            $("#messages").append(
+                                '<li>' + mes.message + '</li>'
+                            );
                         }
 
                     },

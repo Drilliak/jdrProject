@@ -41,6 +41,13 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
         </table>
     </div>
 
+    <div id="chat">
+        <ul id="messages">
+
+        </ul>
+        <textarea id="currentMessage" type="text"></textarea>
+        <input type="submit" value="Envoyer"/>
+    </div>
     <script src="../../vendor/jquery-3.2.1.min.js"></script>
     <script>
 
@@ -121,6 +128,25 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
 
 
                     });
+
+                $("#chat input").click(function(e){
+                    $("#messages").append(
+                      '<li>' + $("#currentMessage").val().replace('\n', '<br>') + '</li>'
+                    );
+                    $.post(
+                        '../ajax/add_message_admin.php',
+                        {
+                            message: $("#currentMessage").val().replace('\n', '<br>')
+                        },
+                        function(data){
+
+                        },
+                        'json'
+                    )
+                    $("#currentMessage").val("");
+                    $("#currentMessage").focus();
+
+                });
                 });
             });
     </script>
