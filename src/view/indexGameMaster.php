@@ -21,32 +21,34 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
     <link rel="stylesheet" href="../../web/css/index_game_master_style.css"/>
 </head>
 <body>
-
     <h1>Maître du jeu</h1>
-    <div id="contenu">
-        <table>
-            <tr id="header">
-                <td class="smallImage"></td>
-                <td class="user">Utilisateur</td>
-                <td class="personnage">Personnage</td>
-                <td class="titre">Titre</td>
-                <td class="statPhysique">Physique</td>
-                <td class="statMental">Mental</td>
-                <td class="statSocial">Social</td>
-                <td class="statMagie">Magie</td>
-                <td class="hp">PV</td>
-                <td class="mana">Mana</td>
-                <td class="armor">Armure</td>
-            </tr>
-        </table>
-    </div>
+        <div id="tableauChat">
+        <div id="contenu">
+            <table>
+                <tr id="header">
+                    <td class="smallImage"></td>
+                    <td class="user">Utilisateur</td>
+                    <td class="personnage">Personnage</td>
+                    <td class="titre">Titre</td>
+                    <td class="statPhysique">Physique</td>
+                    <td class="statMental">Mental</td>
+                    <td class="statSocial">Social</td>
+                    <td class="statMagie">Magie</td>
+                    <td class="hp">PV</td>
+                    <td class="mana">Mana</td>
+                    <td class="armor">Armure</td>
+                </tr>
+            </table>
+        </div>
 
-    <div id="chat">
-        <ul id="messages">
+        <div id="chat"><div id="chatEnvoyer">
+            <ul id="messages">
 
-        </ul>
+            </ul>
+        </div>  
         <textarea id="currentMessage" type="text"></textarea>
-        <input type="submit" value="Envoyer"/>
+        <input id="bouton" type="submit" value="Envoyer"/>
+        </div>
     </div>
     <script src="../../vendor/jquery-3.2.1.min.js"></script>
     <script>

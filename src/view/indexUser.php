@@ -32,37 +32,39 @@ if (!isset($_SESSION['login'])){
 
 
 <body>
-<fieldset>
-    <legend> </legend>
-    <p><span id="titre"></span></p>
-    <div id="myImgContainer">
-        <img id="myImg" src=""/>
+<div id="ficheChat">
+    <fieldset>
+        <legend> </legend>
+        <p><span id="titre"></span></p>
+        <div id="myImgContainer">
+            <img id="myImg" src=""/>
+        </div>
+        <ul id = "state">
+
+            <li>PV : <span id="pv"></span></li>
+            <li>Mana : <span id="mana"></span></li>
+            <li id="myarmor">Armure : <span id="armure"></span></li>
+        </ul>
+
+        <ul id="baseStats">
+            <li id="nomList">Physique : <span id="physique"></span></li>
+            <li>Mental : <span id="mental"></span></li>
+            <li>Social : <span id="social"></span></li>
+            <li>Magie : <span id="magie"></span></li>
+
+
+        </ul>
+
+    </fieldset>
+        <ul id="messages">
+
+        </ul>
     </div>
-    <ul id = "state">
-
-        <li>PV : <span id="pv"></span></li>
-        <li>Mana : <span id="mana"></span></li>
-        <li id="myarmor">Armure : <span id="armure"></span></li>
-    </ul>
-
-    <ul id="baseStats">
-        <li id="nomList">Physique : <span id="physique"></span></li>
-        <li>Mental : <span id="mental"></span></li>
-        <li>Social : <span id="social"></span></li>
-        <li>Magie : <span id="magie"></span></li>
-
-
-    </ul>
-
-</fieldset>
-
     <ul id="otherPlayers">
 
     </ul>
 
-    <ul id="messages">
-
-    </ul>
+    
     <script src="../../vendor/jquery-3.2.1.min.js"></script>
 
     <script>
@@ -143,7 +145,7 @@ if (!isset($_SESSION['login'])){
                         }
 
                         for(let mes of personnage.newMessages){
-                            if (mes.id > idLastMessage){
+                            if (parseInt(mes.id) > parseInt(idLastMessage)){
                                 idLastMessage = mes.id;
                             }
 

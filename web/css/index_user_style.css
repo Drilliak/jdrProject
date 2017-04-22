@@ -9,8 +9,8 @@ fieldset
     font-size: 1.4em;
     border-bottom: none;
     border-radius: 5px;
-    height: 100%;
     text-align: center;
+    width: 450px;
 }
 #baseStats li
 {
@@ -101,7 +101,7 @@ progress#myMana::-webkit-progress-value
 {
     display: flex;
     justify-content: space-between;
-    width: 330px;
+    width: 300px;
     margin-bottom: 30px;
 }
 
@@ -159,9 +159,7 @@ progress.manabarre::-webkit-progress-value
 {
     font-family: Arial, Helvetica, sans-serif;
     float: left;
-    color: #ecf0f1;
-
-    
+    color: #ecf0f1;   
 }
 .stats
 {
@@ -169,4 +167,68 @@ progress.manabarre::-webkit-progress-value
     flex-direction: column-reverse;
     justify-content: space-around;
     margin-top: 15px;
+}
+#messages
+{
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ecf0f1;
+    text-shadow: 1px 1px #2c3e50;
+    width: 450px;
+    overflow-y: scroll;
+    height: 150px;
+    margin-top: 10px;
+    border:2px solid #ecf0f1;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#ficheChat
+{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 1px solid #000000;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #65c6bb;
+}
+::-webkit-scrollbar-track {
+  background: #6c7a89;
+  border: 1px solid #000000;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #95a5a6;
+}
+::-webkit-scrollbar-track:active {
+  background: #808080;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
