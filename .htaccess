@@ -1,3 +1,4 @@
 RewriteEngine Off
 
+
 RewriteRule (.*) src/view/$1 [L]

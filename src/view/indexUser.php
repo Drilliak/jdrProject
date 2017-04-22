@@ -12,8 +12,25 @@ if (!isset($_SESSION['login'])){
 <head>
     <title>Information joueur</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="<?php echo dirname(dirname(dirname($_SERVER['PHP_SELF'])));?>/web/css/index_user_style.css"/>
+    <link rel="stylesheet" href="../../web/css/index_user_style.css"/>
+
+    <script>
+        if (screen.width <= 1024){
+            document.write('<link rel="stylesheet" type="text/css" href="../../web/css/index_user_body_1024.css"');
+        }
+        if (screen.width > 1920){
+            document.write('<link rel="stylesheet" type="text/css" href="../../web/css/index_user_body_2560.css"');
+        }
+        if (screen.width > 1600){
+            document.write('<link rel="stylesheet" type="text/css" href="../../web/css/index_user_body_1920.css"');
+        }
+        if (screen.width > 1024){
+            document.write('<link rel="stylesheet" type="text/css" href="../../web/css/index_user_body_1600.css"');
+        }
+    </script>
 </head>
+
+
 <body>
 <fieldset>
     <legend> </legend>
@@ -42,14 +59,15 @@ if (!isset($_SESSION['login'])){
     <ul id="otherPlayers">
 
     </ul>
-    <script src="<?php echo dirname(dirname(dirname($_SERVER['PHP_SELF']))) . '/vendor/jquery-3.2.1.min.js';?>"></script>
+    <script src="../../vendor/jquery-3.2.1.min.js"></script>
+
     <script>
 
         $(document).ready(function(){
 
 
             $.post(
-                '<?php echo dirname(dirname($_SERVER['PHP_SELF']));?>/ajax/loading_user_data.php',
+                '../ajax/loading_user_data.php',
                 {
                     name: "<?php echo $_SESSION['login']; ?>"
                 },
@@ -64,8 +82,9 @@ if (!isset($_SESSION['login'])){
                         $("#otherPlayers").append(
                             '<div class ="infosAlliesNom"><li id="otherPlayerName">' + player + '</li>'+
                                 '<div class="infosAllies"><ul class = "stats">' +
-                                    '<li class = "hp"><progress class = "hpbarre" id = "' + player + '" value="' + hp +  '" min="0" max="' + hpMax + '"></progress></li>' +
                                     '<li class = "mana"><progress class="manabarre" id ="' + player + '" value="' + mana +  '" min="0" max="' + manaMax + '"></progress></li>' +
+                                    '<li class = "hp"><progress class = "hpbarre" id = "' + player + '" value="' + hp +  '" min="0" max="' + hpMax + '"></progress></li>' +
+
                                 '</ul>'+
                                 '<img src="' + personnage.otherPlayers[player].image_petite + '" /></div></div>'
 
@@ -77,7 +96,7 @@ if (!isset($_SESSION['login'])){
                     );
                     $("#mana").append(
                         '<span id="myManaValue">' + personnage.mana+'/'+personnage.statMagie + '</span> <br>' +
-                        '<progress  id="myMana" value="' + personnage.mana + '" min="0" max="' + personnage.statMental+ '"></progress>'
+                        '<progress  id="myMana" value="' + personnage.mana + '" min="0" max="' + personnage.statMagie+ '"></progress>'
                     );
                     $("legend").html(personnage.nom);
 
@@ -88,7 +107,7 @@ if (!isset($_SESSION['login'])){
 
             setInterval(function(){
                 $.post(
-                    '<?php echo dirname(dirname($_SERVER['PHP_SELF']));?>/ajax/loading_user_data.php',
+                    '../ajax/loading_user_data.php',
                     {
                         name: "<?php echo $_SESSION['login']; ?>"
                     },

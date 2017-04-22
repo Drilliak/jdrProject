@@ -18,7 +18,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
 <head>
     <title>Information maître du jeu </title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="<?php echo dirname(dirname(dirname($_SERVER['PHP_SELF'])));?>/web/css/index_game_master_style.css"/>
+    <link rel="stylesheet" href="../../web/css/index_game_master_style.css"/>
 </head>
 <body>
 
@@ -38,7 +38,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
         </tr>
     </table>
 
-    <script src="<?php echo dirname(dirname(dirname($_SERVER['PHP_SELF']))) . '/vendor/jquery-3.2.1.min.js';?>"></script>
+    <script src="../../vendor/jquery-3.2.1.min.js"></script>
     <script>
 
         function ajaxLoad(){
@@ -48,7 +48,6 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
 
                 },
                 function(data){
-                    console.log(data);
                     for(user of data){
                         $("table").append(
                             '<tr id="' + user.id_personnage + '" class="userdata">' +
@@ -59,8 +58,8 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                             '<td class = "statMental"><input value="' + user.personnage.statMental + '"></td>' +
                             '<td class = "statSocial"><input value="' + user.personnage.statSocial + '"></td>' +
                             '<td class = "statMagie"><input value="' + user.personnage.statMagie + '"></td>' +
-                            '<td class = "hp"><input value="' + user.personnage.hp + '"></td>' +
-                            '<td class = "mana"><input value="' + user.personnage.mana + '"></td>' +
+                            '<td class = "hp"><input value="' + user.personnage.hp + '" type="number"></td>' +
+                            '<td class = "mana"><input value="' + user.personnage.mana + '" type="number"></td>' +
                             '<td class = "armor"><input value="' + user.personnage.armor + '"></td>' +
                             '</tr>');
                     }
@@ -83,7 +82,7 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                         id_personnage = $(this).parent().parent().attr("id");
 
                         $.post(
-                            '<?php echo dirname(dirname($_SERVER['PHP_SELF']));?>/ajax/update_admin_data.php',
+                            '../ajax/update_admin_data.php',
                             {
                                 changedAttr: changedAttr,
                                 changedVal: changedVal,
@@ -98,41 +97,27 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                     }
                 });
                 $("input").on("focusout", function(){
-                    console.log("défocus");
-                    let changedAttr;
-                    let changedVal;
-                    let id_personnage;
+                    changedAttr = $(this).parent().attr("class");
+                    changedVal = $(this).val();
+                    id_personnage = $(this).parent().parent().attr("id");
 
-                    $("input").keypress(function(e){
-                        if (e.which == 13){
-                            changedAttr = $(this).parent().attr("class");
-                            changedVal = $(this).val();
-                            id_personnage = $(this).parent().parent().attr("id");
+                    $.post(
+                        '../ajax/update_admin_data.php',
+                        {
+                            changedAttr: changedAttr,
+                            changedVal: changedVal,
+                            id_personnage: id_personnage
+                        },
+                        function(data){
+                            console.log(data);
+                        },
+                        'json'
+                    );
 
-                            $.post(
-                                '<?php echo dirname(dirname($_SERVER['PHP_SELF']));?>/ajax/update_admin_data.php',
-                                {
-                                    changedAttr: changedAttr,
-                                    changedVal: changedVal,
-                                    id_personnage: id_personnage
-                                },
-                                function(data){
-                                    console.log(data);
-                                },
-                                'json'
-                            );
 
-                        }
                     });
                 });
-            })
-
-
-
-
-
-
-        });
+            });
     </script>
 </body>
 </html>
