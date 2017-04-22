@@ -20,7 +20,9 @@ class Personnage implements \JsonSerializable
             $divers,
             $hp,
             $mana,
-            $armor;
+            $armor,
+            $image_grande,
+            $image_petite;
 
     /**
     * @var array
@@ -248,6 +250,22 @@ class Personnage implements \JsonSerializable
         $this->mana = $mana;
     }
 
+    public function getImage_grande(){
+        return $this->image_grande;
+    }
+
+    public function setImage_grande($image_grande){
+        $this->image_grande = $image_grande;
+    }
+
+     public function getImage_petite(){
+        return $this->image_petite;
+    }
+
+    public function setImage_petite($image_petite){
+        $this->image_petite = $image_petite;
+    }
+
     public function jsonSerialize()
     {
         return array(
@@ -263,8 +281,10 @@ class Personnage implements \JsonSerializable
             "equipement" => $this->equipement,
             "hp" => $this->hp,
             "mana" => $this->mana,
-            "armor" => $this->armor
-        );
+            "armor" => $this->armor,
+            "image_petite" => $this->image_petite,
+            "image_grande" => $this->image_grande
+            );
     }
 
 }

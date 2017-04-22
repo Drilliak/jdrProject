@@ -23,20 +23,23 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
 <body>
 
     <h1>Maître du jeu</h1>
-    <table>
-        <tr id="header">
-            <td class="user">Utilisateur</td>
-            <td class="personnage">Personnage</td>
-            <td class="titre">Titre</td>
-            <td class="statPhysique">Physique</td>
-            <td class="statMental">Mental</td>
-            <td class="statSocial">Social</td>
-            <td class="statMagie">Magie</td>
-            <td class="hp">PV</td>
-            <td class="mana">Mana</td>
-            <td class="armor">Armure</td>
-        </tr>
-    </table>
+    <div id="contenu">
+        <table>
+            <tr id="header">
+                <td class="smallImage"></td>
+                <td class="user">Utilisateur</td>
+                <td class="personnage">Personnage</td>
+                <td class="titre">Titre</td>
+                <td class="statPhysique">Physique</td>
+                <td class="statMental">Mental</td>
+                <td class="statSocial">Social</td>
+                <td class="statMagie">Magie</td>
+                <td class="hp">PV</td>
+                <td class="mana">Mana</td>
+                <td class="armor">Armure</td>
+            </tr>
+        </table>
+    </div>
 
     <script src="../../vendor/jquery-3.2.1.min.js"></script>
     <script>
@@ -49,8 +52,10 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
                 },
                 function(data){
                     for(user of data){
+                        console.log(user);
                         $("table").append(
                             '<tr id="' + user.id_personnage + '" class="userdata">' +
+                            '<td class = "smallImage"><img src="' +user.personnage.image_petite + '" /></td>' +
                             '<td class = "user"><p>' + user.name +'</p>' +
                             '<td class = "personnage"><p>' + user.personnage.nom + '</td>' +
                             '<td class = "titre"><input value="' + user.personnage.titre + '"></td>' +
