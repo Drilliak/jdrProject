@@ -80,9 +80,27 @@ if (strtolower($_SESSION['role']) != 'gamemaster'){
             );
         }
 
+        function chatLoad(){
+            return $.get(
+                '../ajax/loading_admin_chat.php',
+                {
+
+                },
+                function(messages){
+                    console.log(messages)
+                    for (let mes of messages){
+                        $("#messages").append(
+                            '<li>' + mes.message + '</li>'
+                        );
+                    }
+                },
+                'json'
+            )
+        }
+
 
         $(document).ready(function(){
-            $.when(ajaxLoad()).done(function(a){
+            $.when(ajaxLoad(), chatLoad()).done(function(a,b){
                 let changedAttr;
                 let changedVal;
                 let id_personnage;

@@ -6,7 +6,8 @@ Autoloader::register();
 use Src\Model\DBFactory;
 use Src\Model\MessageManager;
 
+
 $db = DBFactory::getPDOConnection();
 $messageManager = new MessageManager($db);
 
-$messageManager->addMessage($_POST['message']);
+echo json_encode($messageManager->getLastMessages(0));
